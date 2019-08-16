@@ -18,7 +18,7 @@ const OnboardingForm = ({ errors, touched, values, status }) => {
         <Form>
           <Field component="input" type="text" name="name" placeholder="Name"></Field>
           {touched.name && errors.name && (
-            <p>{errors.name}</p>
+            <p className="errMsg">{errors.name}</p>
           )}
 
           <Field component="select" name="role">
@@ -30,25 +30,26 @@ const OnboardingForm = ({ errors, touched, values, status }) => {
 
           <Field component="input" type="email" name="email" placeholder="Email"></Field>
             {touched.email && errors.email && 
-              <p>{errors.email}</p>
+              <p className="errMsg">{errors.email}</p>
             }
 
           <Field component="input" type="password" name="password" placeholder="Password"></Field>
               {touched.password && errors.password && (
-                <p>{errors.password}</p>
+                <p className="errMsg">{errors.password}</p>
               )}
 
-          <label>
+          <label className="checkbox-container">
             Read Terms of Service?
             <Field type="checkbox" name="tos" checked={values.tos} />
                   {touched.tos && errors.tos && (
-                    <p>{errors.tos}</p>
+                    <p className="errMsg">{errors.tos}</p>
                   )}
+                  <span className="checkmark" />
           </label>
           <button type="submit">SUBMIT</button>
         </Form>
         {users.map(user => (
-          <p key="user.id">{user.name} {user.role}</p>
+          <p className="userCard" key="user.id"><span className="deets">Name:</span> {user.name} <span className="deets">Role:</span> {user.role} <span className="deets">Email:</span> {user.email}</p>
         ))}
       </div>
     );
@@ -67,7 +68,9 @@ const OnboardingForm = ({ errors, touched, values, status }) => {
       validationSchema: Yup.object().shape({
           name: Yup.string().required("Gotta have your name, buddy"),
           email: Yup.string().email().required("Need your email, friendo"),
-          password: Yup.string().required("Safety first, fam"),
+          password: Yup.string()
+          .required("Safety first, fam")
+          .min(8, "8 characters or more, pal"),
           tos: Yup.boolean()
           .oneOf([true], "Gotta review, homie")
           .required()
