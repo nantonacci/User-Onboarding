@@ -48,9 +48,10 @@ const OnboardingForm = ({ errors, touched, values, status }) => {
           </label>
           <button type="submit">SUBMIT</button>
         </Form>
+        <div className="cardContainer">
         {users.map(user => (
-          <p className="userCard" key="user.id"><span className="deets">Name:</span> {user.name} <span className="deets">Role:</span> {user.role} <span className="deets">Email:</span> {user.email}</p>
-        ))}
+          <p className="userCard" key={user.id}><span className="deets">Name:</span> {user.name} <span className="deets">Role:</span> {user.role} <span className="deets">Email:</span> {user.email}</p>
+        ))}</div>
       </div>
     );
   };
