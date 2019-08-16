@@ -5,11 +5,11 @@ import axios from "axios";
 
 const OnboardingForm = ({ errors, touched, values, status }) => {
     
-  const [newPerson, setNewPerson] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     if (status) {
-      setNewPerson([...newPerson, status]);
+      setUsers([...users, status]);
     }
   }, [status]);
   
@@ -23,9 +23,9 @@ const OnboardingForm = ({ errors, touched, values, status }) => {
 
           <Field component="select" name="role">
             <option>Choose your role</option>
-            <option value="programmer">Programmer</option>
-            <option value="webdev">Web Developer</option>
-            <option value="designer">Designer</option>
+            <option value="Programmer">Programmer</option>
+            <option value="Web Developer">Web Developer</option>
+            <option value="Designer">Designer</option>
           </Field>
 
           <Field component="input" type="email" name="email" placeholder="Email"></Field>
@@ -47,7 +47,9 @@ const OnboardingForm = ({ errors, touched, values, status }) => {
           </label>
           <button type="submit">SUBMIT</button>
         </Form>
-        
+        {users.map(user => (
+          <p key="user.id">{user.name} {user.role}</p>
+        ))}
       </div>
     );
   };
